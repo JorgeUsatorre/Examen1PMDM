@@ -1,19 +1,17 @@
 package com.example.myapplication.ui.theme
 
 
-import android.util.Log
-import android.widget.Button
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,31 +28,143 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(miModel: Model) {
+fun buttons(miModel: Model) {
     Column(
         modifier = Modifier
-            .fillMaxSize() // Ocupa todo el espacio disponible en el padre.
-            .padding(16.dp), 
-        verticalArrangement = Arrangement.spacedBy(8.dp) // Espacio vertical de 8dp entre elementos
+            .fillMaxWidth()
+            .padding(16.dp)
     ) {
-        Buttons(miModel) // Llama a la función que muestra los botones
-        Textos(miModel) // Llama a la función que muestra los textos
-    }
-}
-
-@Composable
-fun Buttons(miModel: Model) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth() // Ocupa todo el ancho disponible
-    ) {
-        Row(
+        OutlinedTextField(
+            value = miModel.getNombre(),
+            onValueChange = { miModel.nombre.value = it },
             modifier = Modifier
-                .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween // Espacio horizontal entre elementos
+                .height(50.dp)
+                .fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = { miModel.randomLista() },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.Blue) // Cambio de color de fondo a azul
+                ) {
+                }
+                Text(text = "")
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = { miModel.random() },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.Green) // Cambio de color de fondo a verde
+                ) {
+                }
+                Text(text = "")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = { /* TODO */ },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.Red) // Cambio de color de fondo a rojo
+                ) {
+                }
+                Text(text = "")
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = { /* TODO */ },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.Yellow) // Cambio de color de fondo a amarillo
+                ) {
+                }
+                Text(text = "")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = {
+                        if (miModel.isStarted) {
+                            miModel.isStarted = false
+                            miModel.reset()
+                        } else {
+                            miModel.isStarted = true
+                        }
+                    },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.White) // Cambio de color de fondo a gris
+                ) {
+                }
+                Text(text = if (miModel.isStarted) "Reset" else "Start")
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = {
+                        if (miModel.isStarted) {
+                            miModel.sumarRonda()
+                        }
+                    },
+                    modifier = Modifier
+                        .size(100.dp)
+                        .background(Color.Black) // Cambio de color de fondo a rojo
+                ) {
+                }
+                Text(text = "Sumar Ronda")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
                 onClick = { miModel.randomLista() }, // Acción al hacer clic en el botón
@@ -74,18 +184,6 @@ fun Buttons(miModel: Model) {
                 Text(text = "Random") // Texto del botón
             }
         }
-
-        Spacer(modifier = Modifier.height(8.dp)) // Espacio vertical de 8dp
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween // Espacio horizontal entre elementos
-        ) {
-
-
-        }
     }
 }
 
@@ -94,37 +192,40 @@ fun Buttons(miModel: Model) {
 fun Textos(miModel: Model) {
     Column {
         Text(
-            fontSize = 40.sp, // Tamaño de fuente de 40sp
-            text = miModel.getRandom().toString(), // Texto generado por el modelo
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el texto horizontalmente
+            fontSize = 40.sp,
+            text = miModel.getRandom().toString()
         )
 
-        OutlinedTextField(
-            value = miModel.getNombre(), // Valor del campo de texto
-            onValueChange = { miModel.nombre.value = it }, // Acción al cambiar el valor del campo
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = miModel.getLista().toString(),
+            fontSize = 20.sp
+        )
+    }
+}
+
+@Composable
+fun Greeting(miModel: Model) {
+    Column {
+        Text(
+            text = "Ronda: ${miModel.getRonda()}",
+            fontSize = 24.sp,
             modifier = Modifier
-                .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp)
+                .align(Alignment.CenterHorizontally)
+                .padding(16.dp)
         )
 
-        Text(
-            text = "Result: " + miModel.getNombre(), // Texto del resultado
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el texto horizontalmente
-        )
-
-        Text(
-            text = miModel.getLista().toString(), // Texto que muestra la lista
-            fontSize = 20.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el texto horizontalmente
-        )
+        buttons(miModel)
+        Spacer(modifier = Modifier.height(50.dp))
+        Textos(miModel)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview(miModel: Model) {
-     MyApplicationTheme{
-        Greeting(miModel = miModel)
+    MyApplicationTheme {
+        Greeting(miModel)
     }
 }
-
