@@ -36,7 +36,7 @@ fun Greeting(miModel: Model) {
     Column(
         modifier = Modifier
             .fillMaxSize() // Ocupa todo el espacio disponible en el padre.
-            .padding(16.dp), // Margen externo de 16dp
+            .padding(16.dp), 
         verticalArrangement = Arrangement.spacedBy(8.dp) // Espacio vertical de 8dp entre elementos
     ) {
         Buttons(miModel) // Llama a la función que muestra los botones
@@ -53,13 +53,13 @@ fun Buttons(miModel: Model) {
         Row(
             modifier = Modifier
                 .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp), // Margen interno de 8dp
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween // Espacio horizontal entre elementos
         ) {
             Button(
                 onClick = { miModel.randomLista() }, // Acción al hacer clic en el botón
                 modifier = Modifier
-                    .fillMaxWidth(0.4f) // Ocupa el 40% del ancho disponible
+                    .fillMaxWidth(0.4f)
                     .background(Color.White) // Establece el color de fondo en blanco
             ) {
                 Text(text = "Tonal_List") // Texto del botón
@@ -68,7 +68,7 @@ fun Buttons(miModel: Model) {
             OutlinedButton(
                 onClick = { miModel.random() }, // Acción al hacer clic en el botón
                 modifier = Modifier
-                    .fillMaxWidth(0.4f) // Ocupa el 40% del ancho disponible
+                    .fillMaxWidth(0.4f)
                     .background(Color.White) // Establece el color de fondo en blanco
             ) {
                 Text(text = "Random") // Texto del botón
@@ -80,7 +80,7 @@ fun Buttons(miModel: Model) {
         Row(
             modifier = Modifier
                 .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp), // Margen interno de 8dp
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween // Espacio horizontal entre elementos
         ) {
 
@@ -104,7 +104,7 @@ fun Textos(miModel: Model) {
             onValueChange = { miModel.nombre.value = it }, // Acción al cambiar el valor del campo
             modifier = Modifier
                 .fillMaxWidth() // Ocupa todo el ancho disponible
-                .padding(8.dp) // Margen interno de 8dp
+                .padding(8.dp)
         )
 
         Text(
@@ -114,7 +114,7 @@ fun Textos(miModel: Model) {
 
         Text(
             text = miModel.getLista().toString(), // Texto que muestra la lista
-            fontSize = 20.sp, // Tamaño de fuente de 20sp
+            fontSize = 20.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally) // Centra el texto horizontalmente
         )
     }
