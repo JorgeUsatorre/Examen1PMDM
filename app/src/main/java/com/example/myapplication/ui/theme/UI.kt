@@ -57,7 +57,7 @@ fun Buttons(miModel: Model) {
             horizontalArrangement = Arrangement.SpaceBetween // Espacio horizontal entre elementos
         ) {
             Button(
-                onClick = { miModel.randomLista() }, // Acción al hacer clic en el botón
+                onClick = { miModel.randomLista() }, // Acción al hacer clic en el botón.
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .background(Color.White) // Establece el color de fondo en blanco
